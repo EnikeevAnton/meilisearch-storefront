@@ -22,13 +22,14 @@ def save_json(filename, data):
     return filepath
 
 
-def demonstrate_personalization(query="classic"):
+def demonstrate_personalization(query="floral"):
     print(
         f"\nПоисковый запрос: '{query}', сортировка по убыванию рейтинга (rating:desc)")
     print("=" * 70)
 
     # выдача без персонализации (стандартный поиск)
-    res_standard = index.search(query, {'limit': TARGET_LIMIT})
+    res_standard = index.search(query, {'sort': ['rating:desc'],
+                                        'limit': TARGET_LIMIT})
     standard_hits = res_standard.get('hits', [])
     save_json("1_standard_results.json", res_standard)
 
@@ -109,5 +110,41 @@ def demonstrate_personalization(query="classic"):
         f"Статистика: Найдено товаров: {len(res_history.get('hits', []))}, персонализированно: {personalized_count}")
 
 
+def interactive_menu():
+    predefined_queries = {
+        '1': 'luxurious',
+        '2': 'popular',
+        '3': 'red',
+        '4': 'classic',
+        '5': ''
+    }
+
+    while True:
+        print("\nВыберите поисковый запрос для проверки:")
+        print("1. 'luxurious'")
+        print("2. 'popular'")
+        print("3. 'red'")
+        print("4. 'classic'")
+        print("5. '' (пустой запос)")
+        print("6. Ввести свой собственный запрос")
+        print("0. Выход")
+
+        choice = input("Ваш выбор (0-6): ").strip()
+
+        if choice in predefined_queries:
+            demonstrate_personalization(predefined_queries[choice])
+
+        elif choice == '6':
+            custom_query = input("\nВведите поисковый запрос: ").strip()
+            demonstrate_personalization(custom_query)
+
+        elif choice == '0':
+            print("\nВыход из программы.")
+            break
+
+        else:
+            print("\nНекорректный ввод. Выберите от 0 до 4.")
+
+
 if __name__ == "__main__":
-    demonstrate_personalization()
+    interactive_menu()

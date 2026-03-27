@@ -16,7 +16,6 @@ def load_products():
     except requests.exceptions.RequestException as e:
         print(f"Ошибка при скачивании данных: {e}")
         return
-
     print("2. Загружаем документы в Meilisearch...")
     index = client.index('products')
 

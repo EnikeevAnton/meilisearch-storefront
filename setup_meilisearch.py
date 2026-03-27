@@ -44,7 +44,7 @@ def configure_single_index(index_name):
             'rating',
             'tags',
             'images'
-        ]
+        ],
     }
 
     task = index.update_settings(settings)
