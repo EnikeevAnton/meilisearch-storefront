@@ -114,7 +114,7 @@ pip install -r requirements.txt
 Перед загрузкой данных необходимо настроить правила работы поискового движка
 
 ```Bash
-python setup_indexes.py
+python setup_meilisearch.py
 ```
 **Что делает скрипт:**
 Скрипт создает индекс `products` и применяет следующие настройки:
